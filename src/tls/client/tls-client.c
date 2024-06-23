@@ -107,7 +107,7 @@ char *get_sni_from_domain(struct sni_change *sni_changes, char *domain) {
  */
 int create_TLS_connection_with_host_with_changed_SNI(
     SSL_CTX *ctx, struct sni_change *sni_changes,
-    struct ssl_connection *ssl_connection) {
+    struct ssl_connection *ssl_connection, bool no_verify) {
 
     fprintf(stdout, "(info) Creating TLS connection:\n");
     fprintf(stdout, "(info) Hostname: %s\n", ssl_connection->hostname);
@@ -126,7 +126,9 @@ int create_TLS_connection_with_host_with_changed_SNI(
 
     // Configure the client to abort the handshake if certificate
     // verification fails.
-    SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
+    if (!no_verify) {
+        SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
+    }
 
     // Use the default trusted certificate store
     if (!SSL_CTX_set_default_verify_paths(ctx)) {

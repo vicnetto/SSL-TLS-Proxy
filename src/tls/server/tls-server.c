@@ -182,6 +182,11 @@ int create_TLS_connection_with_user(SSL_CTX *ctx, struct root_ca root_ca,
     }
     connect_message[size] = '\0';
 
+    while (!strstr(connect_message, "\r\n\r\n")) {
+        size += read(connection_fd, connect_message + size, BUFFER_SIZE - size);
+        connect_message[size] = '\0';
+    }
+
     // Set new connection socket to non-blocking mode.
     if (fcntl(connection_fd, F_SETFL, O_NONBLOCK) == -1) {
         perror("Error setting socket to non-blocking mode");
