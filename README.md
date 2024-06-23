@@ -54,6 +54,7 @@ Forwarders that have been tested:
     $ ./sni-changer-using-mitm-proxy <root-ca-location> <root-key-location> <key-password>
 ```
 You can add the `--noverify` option in the end to disable server TLS certificate check.
+
 7. Set the forwarder to the right port.
 - In Firefox: `Setting -> General -> Network Settings -> Settings -> Manual Proxy Configuration`. In HTTPS Proxy, type: `localhost` and port `8080`.
 8. **You’re good to go!** Next time, only **step 6 is necessary to run** the project.
