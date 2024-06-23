@@ -45,7 +45,7 @@ Forwarders that have been tested:
 ```shell
     $ make
 ```
-5. Configure te websites where SNI should be changed in `sni.conf`.
+5. Configure the websites where SNI should be changed in `sni.conf`.
 6. Run the application.
 ```shell
     # In case you created your certificate with make cert.
