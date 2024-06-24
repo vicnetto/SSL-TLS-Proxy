@@ -10,6 +10,6 @@
 
 int create_TLS_connection_with_host_with_changed_SNI(
     SSL_CTX *ctx, struct sni_change *sni_changes,
-    struct ssl_connection *ssl_connection);
+    struct ssl_connection *ssl_connection, bool no_verify);
 
 #endif // !TLS_CLIENT_H

@@ -175,12 +175,22 @@ int create_TLS_connection_with_user(SSL_CTX *ctx, struct root_ca root_ca,
     char connect_message[BUFFER_SIZE];
 
     // Read the CONNECT from the client.
-    size_t size = read(connection_fd, connect_message, BUFFER_SIZE);
+    ssize_t size = read(connection_fd, connect_message, BUFFER_SIZE);
     if (size <= 0) {
         fprintf(stderr, "(error) Error reading user socket.\n");
         return -1;
     }
     connect_message[size] = '\0';
+
+    while (!strstr(connect_message, "\r\n\r\n")) {
+        ssize_t read_result = read(connection_fd, connect_message + size, BUFFER_SIZE - size);
+        if (read_result <= 0) {
+            fprintf(stderr, "(error) Error reading user socket, %zd bytes have been read.\n", size);
+            return -1;
+        }
+        size += read_result;
+        connect_message[size] = '\0';
+    }
 
     // Set new connection socket to non-blocking mode.
     if (fcntl(connection_fd, F_SETFL, O_NONBLOCK) == -1) {

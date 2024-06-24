@@ -45,16 +45,19 @@ Forwarders that have been tested:
 ```shell
     $ make
 ```
-5. Run the application.
+5. Configure the websites where SNI should be changed in `sni.conf`.
+6. Run the application.
 ```shell
     # In case you created your certificate with make cert.
     $ ./sni-changer-using-mitm-proxy cert/rootCA.pem cert/rootCA.key <key-password>
     # If you have independently generated your own certificate.
     $ ./sni-changer-using-mitm-proxy <root-ca-location> <root-key-location> <key-password>
 ```
-6. Set the forwarder to the right port.
+You can add the `--noverify` option in the end to disable server TLS certificate check.
+
+7. Set the forwarder to the right port.
 - In Firefox: `Setting -> General -> Network Settings -> Settings -> Manual Proxy Configuration`. In HTTPS Proxy, type: `localhost` and port `8080`.
-7. **You’re good to go!** Next time, only **step 5 is necessary to run** the project.
+8. **You’re good to go!** Next time, only **step 6 is necessary to run** the project.
 
 ## Credits
 This tool was developed by Victor Netto, [Thibault Cholez](https://github.com/cholezth) and [Xavier Marchal](https://github.com/Nayald) of RESIST research group in [LORIA](https://www.loria.fr/fr/), France.

@@ -171,7 +171,7 @@ int sign_certificate(EVP_PKEY *ca_key, const X509 *ca_crt, EVP_PKEY **key,
         goto error;
 
     // Set metadata of the certificate.
-    X509_set_version(*crt, 3);
+    X509_set_version(*crt, 2);
     X509_set_issuer_name(*crt, X509_get_subject_name(ca_crt));
     X509_set_subject_name(*crt, X509_REQ_get_subject_name(req));
     X509_gmtime_adj(X509_get_notBefore(*crt), 0);
